@@ -1,18 +1,25 @@
-name: Verificacao Automatica
+name: Aula 03 - Integracao Continua
 
 on:
   push:
+  pull_request:
 
 jobs:
-  teste:
+  testar-site:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar arquivos do projeto
+      - name: Baixar projeto
         uses: actions/checkout@v4
 
-      - name: Verificar arquivo
-        run: test -f aula-actions.txt
+      - name: Verificar arquivo HTML
+        run: test -f index.html
 
-      - name: Finalizar
-        run: echo "Arquivo encontrado - verificacao concluida"
+      - name: Verificar estrutura HTML
+        run: grep -qi "<html" index.html
+
+      - name: Verificar titulo da pagina
+        run: grep -qi "<title" index.html
+
+      - name: Finalizar testes
+        run: echo "Todos os testes passaram!"
